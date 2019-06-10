@@ -70,8 +70,7 @@ module Gps
       end
 
       def lat_long_dec
-        return nil if @latitude.nil? || @longitude.nil? ||
-                      @latitude_direction.nil? || @longitude_direction.nil?
+        return nil unless has_coordinates?
         "#{lat_dec} #{long_dec}"
       end
 
@@ -89,6 +88,11 @@ module Gps
         else
           to_h.to_json
         end
+      end
+
+      def has_coordinates?
+        !(@latitude.nil? || @longitude.nil? ||
+            @latitude_direction.nil? || @longitude_direction.nil?)
       end
 
       protected

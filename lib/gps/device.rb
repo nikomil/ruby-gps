@@ -25,6 +25,12 @@ module Gps
       end
     end
 
+    def each_coordinate(&block)
+      each_sentence do |sentence|
+        block.call sentence.lat_long_dec if sentence.has_coordinates?
+      end
+    end
+
     def self.open(filename, &block)
       gps_file = Device.new filename
       block.call gps_file

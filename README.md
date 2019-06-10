@@ -30,5 +30,10 @@ Gps::Device.open '/dev/ttyUSB0' do |device|
       puts "Not yet implemented"
     end
   end
+
+    # Fetch coordinates from sentences as they come through (converted to decimal format)
+    device.each_coordinate do |coords|
+      puts "Location: #{coords}"
+    end
 end
 ```
