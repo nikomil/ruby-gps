@@ -1,6 +1,9 @@
 module Gps
   class Device
-    def initialize(filename)
+    attr_accessor :last_datetime # Updates any time a sentence has a datetime
+
+    def initialize(filename, track_datetime=true)
+      @track_datetime = track_datetime
       @filename = filename
       @file = File.open(filename, 'rb')
     end
@@ -21,6 +24,7 @@ module Gps
       each_line do |line|
         s = Nmea::Sentence.parse line
         next if s.nil?
+        update_datetime s if @track_datetime
         block.call s
       end
     end
@@ -35,6 +39,14 @@ module Gps
       gps_file = Device.new filename
       block.call gps_file
       gps_file.close
+    end
+
+    private
+
+    def update_datetime(sentence)
+      if sentence.respond_to? :datetime
+        @last_datetime = sentence.datetime
+      end
     end
   end
 end

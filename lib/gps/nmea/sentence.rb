@@ -23,11 +23,12 @@ module Gps
       end
 
       def self.time_part_to_str(time_part)
-        "#{time_part[0..1]}:#{time_part[2..3]}:#{time_part[4..5]}Z"
+        "#{time_part[0..1]}:#{time_part[2..3]}:#{time_part[4..5]}"
       end
 
       def self.date_part_to_str(date_part)
-        "#{date_part[0..1]}/#{date_part[2..3]}/20#{date_part[4..5]}"
+        century = date_part[4..5].to_i > 70 ? 1900 : 2000
+        "#{century + date_part[4..5].to_i}-#{date_part[2..3]}-#{date_part[0..1]}"
       end
 
       def checksum_valid?
@@ -93,6 +94,10 @@ module Gps
       def has_coordinates?
         !(@latitude.nil? || @longitude.nil? ||
             @latitude_direction.nil? || @longitude_direction.nil?)
+      end
+
+      def has_datetime?
+        respond_to? :datetime
       end
 
       protected
