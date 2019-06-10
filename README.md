@@ -5,6 +5,7 @@ Simple GPS utilities for Ruby. Currently just parses a few NMEA sentences. More 
 Reading GPS serial device
 ```ruby
 Gps::Device.open '/dev/ttyUSB0' do |device|
+  # Fetch sentences as they come through
   device.each_sentence do |s|
     puts s.to_json pretty: true
     case
@@ -31,9 +32,10 @@ Gps::Device.open '/dev/ttyUSB0' do |device|
     end
   end
 
-    # Fetch coordinates from sentences as they come through (converted to decimal format)
-    device.each_coordinate do |coords|
-      puts "Location: #{coords}"
-    end
+  # Fetch coordinates from sentences as they come through (converted to decimal format)
+  device.each_coordinate do |coords|
+    puts "Last known timestamp: #{device.last_datetime}" unless device.last_datetime.nil?
+    puts "Location: #{coords}"
+  end
 end
 ```
