@@ -15,9 +15,19 @@ module Gps
           Gsa.new line
         when line.start_with?('$GPVTG')
           Vtg.new line
+        when line.start_with?('$GPRMC')
+          Rmc.new line
         else
           nil
         end
+      end
+
+      def self.time_part_to_str(time_part)
+        "#{time_part[0..1]}:#{time_part[2..3]}:#{time_part[4..5]}Z"
+      end
+
+      def self.date_part_to_str(date_part)
+        "#{date_part[0..1]}/#{date_part[2..3]}/20#{date_part[4..5]}"
       end
 
       def checksum_valid?

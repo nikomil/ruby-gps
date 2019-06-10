@@ -16,7 +16,7 @@ module Gps
       private
 
       def fill_data
-        @time_str = "#{@parts[0][0..1]}:#{@parts[0][2..3]}:#{@parts[0][4..5]}Z"
+        @time_str = Sentence.time_part_to_str @parts[0]
         @time = Time.parse time_str
         @latitude = @parts[1].to_f
         @latitude_direction = @parts[2]
