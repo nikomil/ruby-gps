@@ -1,4 +1,6 @@
 # ruby-gps
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fnikomil%2Fruby-gps.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fnikomil%2Fruby-gps?ref=badge_shield)
+
 Simple GPS utilities for Ruby. Currently just parses a few NMEA sentences. More to come!
 
 ### Example
@@ -84,3 +86,6 @@ device.rewind
 thread = device.start_async
 thread.join
 ```
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fnikomil%2Fruby-gps.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fnikomil%2Fruby-gps?ref=badge_large)
